@@ -8,7 +8,7 @@
     :root{--ink:#172033;--muted:#667085;--line:#e4e7ec;--soft:#f7f8fa;--blue:#4796c8;
       --green:#3e9b76;--amber:#d49a3a;--danger:#b54747;--blue-bg:#eef6fb;--green-bg:#edf8f3;
       --amber-bg:#fff7e8;--danger-bg:#fff1f1}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:calc(var(--sticky-h, 160px) + 8px)}
     body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,
       "Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.55}
     main{max-width:1240px;margin:auto;padding:32px 28px 80px}
@@ -45,8 +45,11 @@
     .stars{display:flex;gap:6px;color:#d0d5dd;font-size:26px;line-height:1;letter-spacing:2px}
     .branch{margin-top:12px;padding:12px;border-radius:10px;background:var(--soft);border-left:3px solid var(--amber)}
     .branch .caption{margin:0 0 8px}
-    nav{position:sticky;top:0;z-index:3;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);
-      display:flex;gap:18px;padding:12px 0;margin-bottom:24px;overflow:auto}
+    .sticky-bar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.97);
+      backdrop-filter:blur(10px);padding:12px 0 0;margin:0 0 24px;
+      border-bottom:1px solid var(--line);box-shadow:0 8px 20px rgba(23,32,51,.04)}
+    .sticky-bar .filter{margin-top:0}
+    nav{display:flex;gap:18px;padding:12px 0;overflow:auto}
     nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:13px;font-weight:600}
     nav a:hover{color:var(--blue)}
     .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin:14px 0}
@@ -97,7 +100,7 @@
       h1{font-size:24px}.bar-row{grid-template-columns:110px 1fr 54px}
       .hero-top{flex-direction:column}.survey-actions{width:100%;padding-top:8px}
       .survey-actions button{flex:1;min-width:0}}
-    @media print{@page{size:A4 landscape;margin:12mm}main{max-width:none;padding:0}nav,.survey-actions,.modal{display:none}
+    @media print{@page{size:A4 landscape;margin:12mm}main{max-width:none;padding:0}.sticky-bar,.survey-actions,.modal{display:none}
       .hero{border-radius:0}.section{break-before:page}details{break-inside:avoid}details[open]>summary{display:none}
       .table-wrap{overflow:visible}table{font-size:9px;min-width:0}.compact th,.compact td{font-size:8px;padding:4px}
       .chart,.callout,.stat{break-inside:avoid}}
@@ -116,6 +119,8 @@
         <button type="button" data-open-modal="complete-survey">查看完课问卷</button>
       </div>
     </div>
+  </header>
+  <div class="sticky-bar">
     <div class="filter">
       <div class="pills" id="period-pills"></div>
       <div class="filter-row">
@@ -125,7 +130,12 @@
         <label><input type="checkbox" id="compare-prev" checked> 对比上一等长区间</label>
       </div>
     </div>
-  </header>
+    <nav>
+      <a href="#overview">联合结论</a><a href="#exit">退出原因</a><a href="#exit-profile">退出画像交叉</a>
+      <a href="#complete">完课评分</a><a href="#low-rating">1–2分低评</a><a href="#complete-profile">完课画像交叉</a>
+      <a href="#dialogue">课堂信号</a><a href="#lessons">Lesson明细</a>
+    </nav>
+  </div>
 
   <div class="modal" id="exit-survey">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="exit-survey-title">
@@ -182,12 +192,6 @@
       </div>
     </div>
   </div>
-
-  <nav>
-    <a href="#overview">联合结论</a><a href="#exit">退出原因</a><a href="#exit-profile">退出画像交叉</a>
-    <a href="#complete">完课评分</a><a href="#low-rating">1–2分低评</a><a href="#complete-profile">完课画像交叉</a>
-    <a href="#dialogue">课堂信号</a><a href="#lessons">Lesson明细</a>
-  </nav>
 
   <section id="overview">
     <h2>联合结论</h2>
@@ -670,5 +674,12 @@ document.addEventListener("click", e=>{
   if(e.target.closest("[data-close-modal]") || e.target.classList.contains("modal")) closeModals();
 });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeModals(); });
+function syncStickyHeight(){
+  const bar = document.querySelector(".sticky-bar");
+  if(!bar) return;
+  document.documentElement.style.setProperty("--sticky-h", bar.offsetHeight+"px");
+}
+window.addEventListener("resize", syncStickyHeight);
+syncStickyHeight();
 </script>
 </body></html>
