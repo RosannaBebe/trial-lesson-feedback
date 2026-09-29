@@ -223,7 +223,7 @@
       <div id="exit-reason-wrap"><div class="chart"><h3>主动退出：有效答卷事件中的原因</h3><div class="legend"><span><i class="dot l1"></i>L1</span><span><i class="dot l2"></i>L2</span><span><i class="dot l3"></i>L3</span><span><i class="dot l4"></i>L4</span></div><div class="bar-row"><div class="bar-label">暂时有事</div><div class="bar-track"><div class="bar-stack" style="width:100.0%"><div class="bar-seg l1" style="width:37.6%" data-tip="L1 37.6% · 210次"></div><div class="bar-seg l2" style="width:21.3%" data-tip="L2 21.3% · 119次"></div><div class="bar-seg l3" style="width:19.7%" data-tip="L3 19.7% · 110次"></div><div class="bar-seg l4" style="width:21.3%" data-tip="L4 21.3% · 119次"></div></div></div><div class="bar-value">39.7%</div></div><div class="bar-row"><div class="bar-label">听不懂/难</div><div class="bar-track"><div class="bar-stack" style="width:77.1%"><div class="bar-seg l1" style="width:29.1%" data-tip="L1 29.1% · 125次"></div><div class="bar-seg l2" style="width:16.6%" data-tip="L2 16.6% · 71次"></div><div class="bar-seg l3" style="width:24.2%" data-tip="L3 24.2% · 104次"></div><div class="bar-seg l4" style="width:30.1%" data-tip="L4 30.1% · 129次"></div></div></div><div class="bar-value">30.6%</div></div><div class="bar-row"><div class="bar-label">不知道怎么玩</div><div class="bar-track"><div class="bar-stack" style="width:38.5%"><div class="bar-seg l1" style="width:31.6%" data-tip="L1 31.6% · 68次"></div><div class="bar-seg l2" style="width:17.7%" data-tip="L2 17.7% · 38次"></div><div class="bar-seg l3" style="width:21.9%" data-tip="L3 21.9% · 47次"></div><div class="bar-seg l4" style="width:28.8%" data-tip="L4 28.8% · 62次"></div></div></div><div class="bar-value">15.3%</div></div><div class="bar-row"><div class="bar-label">不感兴趣</div><div class="bar-track"><div class="bar-stack" style="width:19.6%"><div class="bar-seg l1" style="width:23.9%" data-tip="L1 23.9% · 26次"></div><div class="bar-seg l2" style="width:22.9%" data-tip="L2 22.9% · 25次"></div><div class="bar-seg l3" style="width:22.9%" data-tip="L3 22.9% · 25次"></div><div class="bar-seg l4" style="width:30.3%" data-tip="L4 30.3% · 33次"></div></div></div><div class="bar-value">7.8%</div></div><div class="bar-row"><div class="bar-label">网络/设备</div><div class="bar-track"><div class="bar-stack" style="width:41.8%"><div class="bar-seg l1" style="width:41.2%" data-tip="L1 41.2% · 96次"></div><div class="bar-seg l2" style="width:19.3%" data-tip="L2 19.3% · 45次"></div><div class="bar-seg l3" style="width:21.9%" data-tip="L3 21.9% · 51次"></div><div class="bar-seg l4" style="width:17.6%" data-tip="L4 17.6% · 41次"></div></div></div><div class="bar-value">16.6%</div></div><div class="bar-row"><div class="bar-label">其他</div><div class="bar-track"><div class="bar-stack" style="width:20.9%"><div class="bar-seg l1" style="width:25.6%" data-tip="L1 25.6% · 30次"></div><div class="bar-seg l2" style="width:23.9%" data-tip="L2 23.9% · 28次"></div><div class="bar-seg l3" style="width:28.2%" data-tip="L3 28.2% · 33次"></div><div class="bar-seg l4" style="width:22.2%" data-tip="L4 22.2% · 26次"></div></div></div><div class="bar-value">8.3%</div></div><p class="caption">分母：1,404次有效答卷事件；柱长是该原因总占比，柱内颜色是该原因中 L1–L4 的构成。多选题，各项之和可超过100%。</p></div></div>
       <div id="exit-side">
         <div class="callout info"><strong>课程/交互体验信号覆盖44.4%</strong><p>听不懂、不知道怎么玩、不感兴趣三项取并集，共624/1,404。只有课程/交互原因的占38.8%。</p></div>
-        <div class="callout warning"><strong>外部或技术原因覆盖54.6%</strong><p>暂时有事与网络/设备取并集，共767/1,404；只有外部/技术原因的占49.0%，两类重叠5.6%。</p></div>
+        <div class="callout warning"><strong>技术原因覆盖16.6%</strong><p>网络或设备有问题，共233/1,404。</p></div>
       </div>
     </div>
     <h3>退出原因对应的课堂信号与回流</h3>
@@ -395,7 +395,7 @@ function summarize(startText, endText){
     };
   });
   const content = exitAns.filter(row=>row.r[1]||row.r[2]||row.r[3]).length;
-  const external = exitAns.filter(row=>row.r[0]||row.r[4]).length;
+  const technical = exitAns.filter(row=>row.r[4]).length;
   const ratingShare = [1,2,3,4,5].map(score=>rated.filter(row=>row.s===score).length);
   const diffShare = [1,2,3].map(score=>diffs.filter(row=>row.f===score).length);
   const both = complete.filter(row=>row.s && row.f);
@@ -426,7 +426,7 @@ function summarize(startText, endText){
     recovered: last.filter(row=>row.v).length,
     recoveredPct: last.length ? last.filter(row=>row.v).length/last.length*100 : null,
     reasonCounts, reasonLevels, content, contentPct: exitAns.length ? content/exitAns.length*100 : null,
-    external, externalPct: exitAns.length ? external/exitAns.length*100 : null,
+    technical, technicalPct: exitAns.length ? technical/exitAns.length*100 : null,
     complete: complete.length,
     core: complete.filter(row=>row.s||row.f).length,
     corePct: complete.length ? complete.filter(row=>row.s||row.f).length/complete.length*100 : null,
@@ -623,7 +623,7 @@ function render(){
   document.getElementById("exit-reason-wrap").innerHTML = stackedBars(cur);
   document.getElementById("exit-side").innerHTML =
     `<div class="callout info"><strong>课程/交互体验信号覆盖${pct(cur.contentPct)}</strong><p>听不懂、不知道怎么玩、不感兴趣三项取并集，共${fmt(cur.content)}/${fmt(cur.exitAnswered)}。</p></div>`+
-    `<div class="callout warning"><strong>外部或技术原因覆盖${pct(cur.externalPct)}</strong><p>暂时有事与网络/设备取并集，共${fmt(cur.external)}/${fmt(cur.exitAnswered)}。</p></div>`;
+    `<div class="callout warning"><strong>技术原因覆盖${pct(cur.technicalPct)}</strong><p>网络或设备有问题，共${fmt(cur.technical)}/${fmt(cur.exitAnswered)}。</p></div>`;
   document.getElementById("complete-lead").textContent =
     `本切口完课弹窗课堂 ${fmt(cur.complete)}；评分、难度按各自实际作答分母。`;
   document.getElementById("complete-stats").innerHTML = statsHTML([
