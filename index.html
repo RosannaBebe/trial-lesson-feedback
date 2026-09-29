@@ -17,10 +17,7 @@
     .caption{font-size:12px;margin:10px 0 0}.eyebrow{font-size:12px;letter-spacing:.08em;
       text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:8px}
     .hero{padding:28px;border:1px solid var(--line);background:var(--soft);border-radius:14px}
-    .hero p{max-width:900px;margin:6px 0}.toolbar{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-    .toolbar a,.toolbar button{appearance:none;border:1px solid #cfd4dc;background:white;color:var(--ink);
-      border-radius:7px;padding:7px 12px;text-decoration:none;font:inherit;font-size:13px;cursor:pointer}
-    .toolbar a:hover,.toolbar button:hover{border-color:var(--blue)}
+    .hero p{max-width:900px;margin:6px 0}
     nav{position:sticky;top:0;z-index:3;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);
       display:flex;gap:18px;padding:12px 0;margin-bottom:24px;overflow:auto}
     nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:13px;font-weight:600}
@@ -72,7 +69,7 @@
     .period-banner{font-size:13px;color:var(--muted);margin:8px 0 0}
     @media(max-width:800px){main{padding:20px 14px 60px}.two-col,.note-grid{grid-template-columns:1fr}
       h1{font-size:24px}.bar-row{grid-template-columns:110px 1fr 54px}}
-    @media print{@page{size:A4 landscape;margin:12mm}main{max-width:none;padding:0}nav,.toolbar button{display:none}
+    @media print{@page{size:A4 landscape;margin:12mm}main{max-width:none;padding:0}nav{display:none}
       .hero{border-radius:0}.section{break-before:page}details{break-inside:avoid}details[open]>summary{display:none}
       .table-wrap{overflow:visible}table{font-size:9px;min-width:0}.compact th,.compact td{font-size:8px;padding:4px}
       .chart,.callout,.stat{break-inside:avoid}}
@@ -94,10 +91,6 @@
         <label><input type="checkbox" id="compare-prev" checked> 对比上一等长区间</label>
       </div>
       <p class="period-banner" id="period-banner"></p>
-    </div>
-    <div class="toolbar">
-      <a href="#overview">联合结论</a><a href="#exit">主动退出</a><a href="#complete">完课反馈</a><a href="#low-rating">1–2分低评</a>
-      <a href="#lessons">按Lesson</a><button onclick="window.print()">打印 / 另存PDF</button>
     </div>
   </header>
 
