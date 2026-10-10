@@ -13,3 +13,10 @@ https://rosannabebe.github.io/trial-lesson-feedback/archive/
 数据覆盖 2026-08-26 至 2026-09-29。已剔除 L5/L6。
 
 Level × 年龄 × Onboarding 英文能力交叉：优先展示 2026-09-14 之后的单岁年龄（3–15），下面保留历史年龄段（3–5 / 6–8 / 9–12 / 13+）。
+
+
+## 日本 ja-JP 体验课课堂分析
+
+同一域名下的日本干净样本看板（N=55，窗口 2026-08-26–10-10 UTC）：
+
+https://rosannabebe.github.io/trial-lesson-feedback/japan/
